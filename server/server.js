@@ -7,7 +7,7 @@ const port = 8000;
 
 // import handler functions 
 const {
-    getSchedule
+    getSchedule, getScoreBoard, getLineups
 } = require("./handlers");
 
 // This will log more info to the console. see https://www.npmjs.com/package/morgan
@@ -20,6 +20,7 @@ app.use(express.static("public"));
 
 
 app.get("/api/schedule", getSchedule);
+app.get("/api/score-board", getScoreBoard);
 
 
 
