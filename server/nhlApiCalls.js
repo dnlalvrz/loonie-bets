@@ -2,6 +2,7 @@ const request = require('request-promise');
 
 //import TEST DATA FILES
 const { testSchedule } = require("./DATA-FILES-FOR-TEST-MODE/schedule");
+const { boxscore } = require("./DATA-FILES-FOR-TEST-MODE/boxscore");
 const { linescoreStart,
     linescoreGoal,
     linescoreGoal2,
@@ -9,32 +10,9 @@ const { linescoreStart,
  } = require("./DATA-FILES-FOR-TEST-MODE/linescore");
 const { response } = require('express');
 
-const testScoreBoardScript = () => {
-    let period;
-    let timeRemaining;
-    let awayTeam;
-    let homeTeam;
-    let powerPlay;
-    let powerPlayInfo;
-    let isActive;
-    let response;
+// helpers and scripts
+const { lineupFormatter, testScoreBoardScript } = require("./helpers")
 
-    // if (gameId === "test1234") return response;
-    if (gameId === "test1234") {
-        isActive = true;
-        period = linescoreStart.currentPeriodOrdinal;
-        timeRemaining = linescoreStart.currentPeriodTimeRemaining;
-        awayTeam = linescoreStart.teams.away;
-        homeTeam = linescoreStart.teams.home;
-        // if (linescoreStart.powerPlayStrength === "Even") return;
-        if (linescoreStart.powerPlayStrength !== "Even") {
-            powerPlay = linescoreStart.powerPlayStrength;
-            powerPlayInfo = linescoreStart.powerPlayInfo;
-        }
-        response = [isActive, period, timeRemaining, awayTeam, homeTeam, powerPlay, powerPlayInfo];
-    }
-    return response;
-}
 
 
 const fetchApiSchedule = async () => {   
@@ -58,6 +36,21 @@ const fetchApiSchedule = async () => {
 };
 
 const fetchApiLineups = async (gameId) => {
+    if (gameId === "test1234") {
+        const response = boxscore;
+        const teams = response.teams;
+        const lineups = [];
+        const awayTeam = teams.away.team;
+        const homeTeam = teams.home.team;
+        // format data before returning the response for the handler
+        // see helpers file for more info
+        const awayLineup = lineupFormatter("away", teams);
+        const homeLineup = lineupFormatter("home", teams);
+
+        lineups.push({away: {awayTeam, awayLineup}}, {home: {homeTeam, homeLineup}});
+
+        return lineups;
+    }
     const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/boxscore`;
     // options template for every call
     const options = {
@@ -71,21 +64,14 @@ const fetchApiLineups = async (gameId) => {
         const response = await request(options);
         const teams = await response.teams;
         const lineups = [];
-        // console.log(teams)
-        const teamAway = teams.team;
-        const skatersAway = teams.away.skaters;
-        const scratchesAway = teams.away.scratches;
-        const playersAway = teams.away.players;
-        let lineupAway = [];
-        for (const el of skatersAway) {
-            if (!scratchesAway.includes(el)) {
-                lineupAway.push(el);
-            }
-        }
-        console.log(lineupAway)
+        const awayTeam = teams.away.team;
+        const homeTeam = teams.home.team;
+        // format data before returning the response for the handler
+        // see helpers file for more info
+        const awayLineup = lineupFormatter("away", teams);
+        const homeLineup = lineupFormatter("home", teams);
 
-            // lineups.push({team: skaters.filter(skater => scratches.includes(skater))}, players);
-
+        lineups.push({away: {awayTeam, awayLineup}}, {home: {homeTeam, homeLineup}});
 
         return lineups;
 
@@ -148,8 +134,6 @@ const fetchApiScoreBoard = async (gameId) => {
     }
     response = {isActive, period, timeRemaining, awayTeam, homeTeam, powerPlay, powerPlayInfo};
     return response;
-
-
 };
 
 module.exports = {fetchApiSchedule, fetchApiLineups, fetchApiScoreBoard};
