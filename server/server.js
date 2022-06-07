@@ -20,7 +20,8 @@ app.use(express.static("public"));
 
 
 app.get("/api/schedule", getSchedule);
-app.get("/api/score-board", getScoreBoard);
+app.get("/api/score-board/:gameId", getScoreBoard);
+app.get("/api/lineups/:gameId", getLineups);
 
 
 

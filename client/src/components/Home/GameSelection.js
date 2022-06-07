@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
+import { Route, Redirect } from "react-router-dom";
 import { GameContext } from "../Context/GameContext";
 
 const GameSelection = () => {
-    const { gameStatus, setGameStatus } = useContext(GameContext);
+    const { gameStatus, setGameStatus, fetchScoreBoard } = useContext(GameContext);
     const [status, setStatus] = useState(null);
     const [schedule, setSchedule] = useState(null);
     console.log(schedule);
@@ -31,10 +32,16 @@ const GameSelection = () => {
             ...gameStatus,
             userSelected: true,
         })
+        fetchScoreBoard();
     }
 
     return(
         <>
+        { gameStatus.userSelected === true &&
+            <Route exact path="/">
+                <Redirect to={`/game/${gameStatus.gameId}/`} />
+            </Route>
+        }
         {status === "loaded" && 
         <Wrapper>
             <form onSubmit={handleSubmit}>
@@ -90,7 +97,7 @@ const Button = styled.button`
         width: 284px;
         transition:all ease-out 200ms;
         &:hover {
-            opacity: .8;
+            opacity: .9;
             border: 2px double;
         }
 `;

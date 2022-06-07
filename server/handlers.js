@@ -28,8 +28,8 @@ const getSchedule = async (req, res) => {
 };
 
 const getScoreBoard = async (req, res) => {
-    // const gameId = req.params.gameId;
-    const gameId = "test1234";
+    const gameId = req.params.gameId;
+    // const gameId = "test1234";
     
     const data = await fetchApiScoreBoard(gameId);
 
@@ -40,11 +40,16 @@ const getScoreBoard = async (req, res) => {
     })
 };
 
-
 const getLineups = async (req, res) => {
     const gameId = req.params.gameId;
-    // const uri = `https://statsapi.web.nhl.com/api/v1/game/2021030323/boxscore`;
+
     const data = await fetchApiLineups(gameId);
+
+    res.status(200).json({
+        status: 200,
+        message: "Ok",
+        data: data,
+    })
 };
 
 

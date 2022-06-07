@@ -7,11 +7,11 @@ const ScoreBoard = () => {
 
     return(
         <Wrapper>
-            {status === "loaded" && <TeamsWrapper>
+            {status === 200 && <TeamsWrapper>
                 <h2>{gameData.awayTeam.team.name} {gameData.awayTeam.goals}</h2>
                 <h2>{gameData.homeTeam.team.name} {gameData.homeTeam.goals}</h2>
             </TeamsWrapper>}
-            {status === "loaded" && <GameStatus>
+            {status === 200 && <GameStatus>
             <h3>{gameData.timeRemaining}</h3>
             <h3>{gameData.period}</h3>
             </GameStatus>}

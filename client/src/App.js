@@ -6,6 +6,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import GlobalStyles from "./GlobalStyles";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
+import Game from "./components/Game/Game";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             <Home />
           </Route>
           <Route exact path="/game/:gameId">
-            <div>Chosen Game</div>
+            <Game />
           </Route>
           <Route path="">404: Oops!</Route>
         </Switch>
@@ -31,7 +32,8 @@ const Main = styled.div`
   background: rgb(230,242,241);
   background: linear-gradient(0deg, rgba(230,242,241,1) 0%, rgba(147,239,240,1) 100%);
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
   height: calc(100vh - 110px);
   padding: 18px;
 `;
