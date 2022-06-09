@@ -3,7 +3,14 @@ import {useState, createContext, useEffect} from 'react';
 export const GameContext = createContext();
 
 export const GameProvider = ({children}) => {
-    const [gameStatus, setGameStatus] = useState({status: null, gameId: "", currentUser: "", userSelected: false});
+    const [gameStatus, setGameStatus] = useState({status: null,
+        gameId: "",
+        currentUser: "", 
+        userSelected: false, 
+        userGains: 0, 
+        currentPlayerSelected: {id: null, name: null},
+        lastPlayerSelected: {id: null, name: null},
+    });
     const [gameData, setGameData] = useState([]);
     console.log(gameStatus)
     // console.log(status)
@@ -15,14 +22,26 @@ export const GameProvider = ({children}) => {
         .then (data => {
             // console.log(data)
             setGameData(data.data);
-            setGameStatus({...gameStatus, status: data.status});
+            if (gameStatus.status === null) setGameStatus({...gameStatus, status: data.status});
         })
         .catch((error) => {
             console.error('Error:', error);
             setGameStatus("error");
         });
+        const interval = setInterval(() => {
+            fetch(`/api/score-board/${gameStatus.gameId}`)
+            .then(res => res.json())
+            .then (data => {
+                // console.log(data)
+                setGameData(data.data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                setGameStatus("error");
+            });
+        }, 60000);
+        return () => clearInterval(interval);
     }
-
 
     return(
         <GameContext.Provider value={{gameData, gameStatus, setGameStatus, fetchScoreBoard}}>

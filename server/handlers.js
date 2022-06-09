@@ -1,7 +1,7 @@
 "use strict";
 
 // import API calling functions
-const {fetchApiSchedule, fetchApiScoreBoard, fetchApiLineups} = require("./nhlApiCalls");
+const {fetchApiSchedule, fetchApiScoreBoard, fetchApiLineups, fetchApiGoals} = require("./nhlApiCalls");
 
 // MongoDB config
 const { MongoClient } = require("mongodb");
@@ -11,6 +11,8 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
+// global scope variable to hold our game data
+let gameData;
 
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
 const { v4: uuidv4 } = require("uuid");
@@ -44,6 +46,7 @@ const getLineups = async (req, res) => {
     const gameId = req.params.gameId;
 
     const data = await fetchApiLineups(gameId);
+    // gameData = {gameId, data};
 
     res.status(200).json({
         status: 200,
@@ -52,10 +55,42 @@ const getLineups = async (req, res) => {
     })
 };
 
+const selectPlayer = async (req, res) => {
+    const player = req.body.id;
+    const chosenBy = req.body.chosenBy;
+    console.log(gameData)
+    await gameData.data[0].away.awayLineup.forEach(element => {
+        if (element.id === player) {
+            element.isAvailable = false;
+            element.chosenBy = chosenBy;
+        }
+    })
+
+    res.status(200).json({
+        status: 200,
+        message: "Ok",
+        data: gameData,
+    })
+}
+
+const getGoals = async (req, res) => {
+    const gameId = req.query.gameId;
+
+    const data = await fetchApiGoals(gameId);
+
+    res.status(200).json({
+        status: 200,
+        message: "Ok",
+        data: data,
+    })
+}
+
 
 
 module.exports = {
     getSchedule,
     getScoreBoard,
     getLineups,
+    selectPlayer,
+    getGoals,
 };

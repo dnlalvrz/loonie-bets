@@ -3,6 +3,7 @@ const request = require('request-promise');
 //import TEST DATA FILES
 const { testSchedule } = require("./DATA-FILES-FOR-TEST-MODE/schedule");
 const { boxscore } = require("./DATA-FILES-FOR-TEST-MODE/boxscore");
+const { feedLiveGoal2 } = require("./DATA-FILES-FOR-TEST-MODE/feed-live-goal-2");
 const { linescoreStart,
     linescoreGoal,
     linescoreGoal2,
@@ -11,7 +12,7 @@ const { linescoreStart,
 const { response } = require('express');
 
 // helpers and scripts
-const { lineupFormatter, testScoreBoardScript } = require("./helpers")
+const { lineupFormatter, testScoreBoardScript, goalFormatter } = require("./helpers")
 
 
 
@@ -51,7 +52,7 @@ const fetchApiLineups = async (gameId) => {
 
         return lineups;
     }
-    const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/boxscore`;
+    const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/feed/live`;
     // options template for every call
     const options = {
         uri: uri,
@@ -136,4 +137,40 @@ const fetchApiScoreBoard = async (gameId) => {
     return response;
 };
 
-module.exports = {fetchApiSchedule, fetchApiLineups, fetchApiScoreBoard};
+const fetchApiGoals = async (gameId) => {
+    if (gameId === "test1234") {
+        const response = feedLiveGoal2;
+        const scoringPlays = response.liveData.plays.scoringPlays;
+        const allPlays = response.liveData.plays.allPlays;
+        // format data before returning the response for the handler
+        // see helpers file for more info
+        const goals = goalFormatter(scoringPlays, allPlays);
+
+        return goals;
+    }
+
+    const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/boxscore`;
+    // options template for every call
+    const options = {
+        uri: uri,
+        headers: {
+            "Accept": "application/json"
+        },
+        json: true // Automatically parses the JSON string in the response
+    }
+    try {
+        const response = await request(options);
+        const scoringPlays = await response.liveData.plays.scoringPlays;
+        const allPlays = await response.liveData.plays.allPlays;
+        // format data before returning the response for the handler
+        // see helpers file for more info
+        const goals = goalFormatter(scoringPlays, allPlays);
+
+        return goals;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = {fetchApiSchedule, fetchApiLineups, fetchApiScoreBoard, fetchApiGoals};

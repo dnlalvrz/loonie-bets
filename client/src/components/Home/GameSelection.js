@@ -7,7 +7,7 @@ const GameSelection = () => {
     const { gameStatus, setGameStatus, fetchScoreBoard } = useContext(GameContext);
     const [status, setStatus] = useState(null);
     const [schedule, setSchedule] = useState(null);
-    console.log(schedule);
+    // console.log(schedule);
 
     // fetch the endpoint for today's schedule
     useEffect(() => {
@@ -15,7 +15,7 @@ const GameSelection = () => {
         .then(res => res.json())
         .then (data => {
             // console.log(data)
-            setSchedule(data.data.dates[0].games);
+            if (data.data.dates.length > 0) setSchedule(data.data.dates[0].games);
             setStatus("loaded");
         })
         .catch((error) => {
@@ -50,11 +50,15 @@ const GameSelection = () => {
                 <select required value={gameStatus.gameId} onChange={(e) => setGameStatus({...gameStatus, gameId: e.target.value})}>
                     <option>Choose a game</option>
                     <option value="test1234">Test Mode</option>
+                    {schedule !== null &&
+                    <>
                     {schedule.map(item => {
                         return(
                             <option key={item.gamePk} value={item.gamePk}>{item.teams.away.team.name} vs {item.teams.home.team.name}</option>
                         )
                     })}
+                    </>
+                    }
                 </select>
                 <Button>ENTER</Button>
                 </label>

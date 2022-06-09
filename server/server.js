@@ -7,7 +7,7 @@ const port = 8000;
 
 // import handler functions 
 const {
-    getSchedule, getScoreBoard, getLineups
+    getSchedule, getScoreBoard, getLineups, selectPlayer, getGoals
 } = require("./handlers");
 
 // This will log more info to the console. see https://www.npmjs.com/package/morgan
@@ -22,6 +22,10 @@ app.use(express.static("public"));
 app.get("/api/schedule", getSchedule);
 app.get("/api/score-board/:gameId", getScoreBoard);
 app.get("/api/lineups/:gameId", getLineups);
+// player selection in the backend will be implemented for multiplayer and Discord bot functionality
+app.put("/api/select-player", selectPlayer);
+// endpoint that returns the latest goal
+app.get("/api/goals", getGoals);
 
 
 

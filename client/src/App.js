@@ -7,6 +7,8 @@ import GlobalStyles from "./GlobalStyles";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Game from "./components/Game/Game";
+import Modal from "./components/Game/Modal";
+import BetsPlaced from "./components/Game/BetsPlaced";
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
           </Route>
           <Route exact path="/game/:gameId">
             <Game />
+          </Route>
+          <Route exact path="/bet/:id">
+            <BetsPlaced />
           </Route>
           <Route path="">404: Oops!</Route>
         </Switch>

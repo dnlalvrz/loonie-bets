@@ -1,17 +1,19 @@
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GameContext } from "../Context/GameContext";
 
 const ScoreBoard = () => {
-    const { gameData, gameStatus: {status} } = useContext(GameContext);
+    const { gameData, gameStatus: {status}} = useContext(GameContext);
 
     return(
         <Wrapper>
-            {status === 200 && <TeamsWrapper>
+            {status === 200 && 
+            <TeamsWrapper>
                 <h2>{gameData.awayTeam.team.name} {gameData.awayTeam.goals}</h2>
                 <h2>{gameData.homeTeam.team.name} {gameData.homeTeam.goals}</h2>
             </TeamsWrapper>}
-            {status === 200 && <GameStatus>
+            {status === 200 && 
+            <GameStatus>
             <h3>{gameData.timeRemaining}</h3>
             <h3>{gameData.period}</h3>
             </GameStatus>}
@@ -32,9 +34,10 @@ const Wrapper = styled.div`
 const TeamsWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 18px;
+    align-items: center;
+    padding: 5px;
     h2 {
-        margin: 5px 0;
+        margin: 10px 0;
     }
 `
 
@@ -42,6 +45,9 @@ const GameStatus = styled.div`
     display: flex;
     flex-direction: column;
     padding: 18px;
+    h3 {
+        margin: 2px 10px;
+    }
 `
 
 export default ScoreBoard;

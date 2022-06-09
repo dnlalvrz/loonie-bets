@@ -6,11 +6,23 @@ const lineupFormatter = (location, teams) => {
     let filteredSkaters = [];
     for (const el of skaters) {
         if (!scratches.includes(el)) {
-            filteredSkaters.push({id: el, playerID: `ID${el}`, fullName: players[`ID${el}`].person.fullName});
+            filteredSkaters.push({isAvailable: true, id: el, playerID: `ID${el}`, fullName: players[`ID${el}`].person.fullName});
         }
     }
     return filteredSkaters;
 };
+
+const goalFormatter = (scoringPlays, allPlays) => {
+    const goals = [];
+    allPlays.filter((item, index) => {
+        scoringPlays.forEach(play => {
+            if (play === index) {
+                goals.push(item);
+            }
+        })
+    })
+    return goals;
+}
 
 
 const testScoreBoardScript = () => {
@@ -42,4 +54,5 @@ const testScoreBoardScript = () => {
 
 module.exports = {
     lineupFormatter,
+    goalFormatter,
 }

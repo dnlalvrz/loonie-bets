@@ -34,6 +34,7 @@ const Logo = styled(Link)`
     font-family: var(--font-heading);
     font-size: 1.2em;
     text-decoration: none;
+    padding: 10px;
 `;
 
 
