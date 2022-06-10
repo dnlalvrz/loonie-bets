@@ -4,6 +4,7 @@ const request = require('request-promise');
 const { testSchedule } = require("./DATA-FILES-FOR-TEST-MODE/schedule");
 const { boxscore } = require("./DATA-FILES-FOR-TEST-MODE/boxscore");
 const { feedLiveGoal2 } = require("./DATA-FILES-FOR-TEST-MODE/feed-live-goal-2");
+const { feedLiveGoal } = require("./DATA-FILES-FOR-TEST-MODE/feed-live-goal");
 const { linescoreStart,
     linescoreGoal,
     linescoreGoal2,
@@ -52,7 +53,7 @@ const fetchApiLineups = async (gameId) => {
 
         return lineups;
     }
-    const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/feed/live`;
+    const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/boxscore`;
     // options template for every call
     const options = {
         uri: uri,
@@ -149,7 +150,7 @@ const fetchApiGoals = async (gameId) => {
         return goals;
     }
 
-    const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/boxscore`;
+    const uri = `https://statsapi.web.nhl.com/api/v1/game/${gameId}/feed/live`;
     // options template for every call
     const options = {
         uri: uri,

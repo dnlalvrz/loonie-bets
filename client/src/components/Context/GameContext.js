@@ -10,9 +10,12 @@ export const GameProvider = ({children}) => {
         userGains: 0, 
         currentPlayerSelected: {id: null, name: null},
         lastPlayerSelected: {id: null, name: null},
+        newGoal: false,
+        latestGoal: null,
+        goalsInGame: 0,
     });
     const [gameData, setGameData] = useState([]);
-    console.log(gameStatus)
+    // console.log(gameStatus)
     // console.log(status)
     // console.log(gameData)
     // fetch the endpoint for selected game's scoreboard
@@ -41,6 +44,11 @@ export const GameProvider = ({children}) => {
             });
         }, 60000);
         return () => clearInterval(interval);
+    }
+
+    // write a function to test game conditions after a goal
+    const hasUserWon = () => {
+        if (!gameStatus.newGoal) return;
     }
 
     return(

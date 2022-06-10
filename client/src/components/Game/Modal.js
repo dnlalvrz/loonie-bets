@@ -64,7 +64,7 @@ const Player = styled.button`
         color: var(--font-light);
         background: lightcoral;
         padding: 1px;
-        margin: 20px 10px;
+        margin: 40px 10px 0;
         width: 180px;
         max-height: 30px;
         transition:all ease-out 200ms;
