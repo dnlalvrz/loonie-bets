@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     color: var(--font-light);
     font-family: var(--font-heading);
-    font-size: 1.2em;
+    font-size: .9em;
     padding: 10px;
     h3 {
         margin: 2px 0;

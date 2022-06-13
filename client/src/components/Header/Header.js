@@ -24,7 +24,8 @@ const Wrapper = styled.header`
     justify-content: space-between;
     align-items: center;
     background: var(--color-header);
-    height: 110px;
+    min-height: 110px;
+    max-height: 130px;
     padding: 18px;
     border: 5px groove gray;
 `;
@@ -32,7 +33,7 @@ const Wrapper = styled.header`
 const Logo = styled(Link)`
     color: var(--font-light);
     font-family: var(--font-heading);
-    font-size: 1.2em;
+    font-size: .9em;
     text-decoration: none;
     padding: 10px;
 `;

@@ -6,10 +6,11 @@ import Modal from "./Modal";
 
 const Game = () => {
     const { gameId } = useParams();
-    const {gameStatus, setGameStatus} = useContext(GameContext);
+    const {gameStatus} = useContext(GameContext);
     const [selectedPlayer, setSelectedPlayer] = useState(null);
     const [status, setStatus] = useState(null);
     const [lineups, setLineups] = useState(null);
+    const [close, setClose] = useState(false);
 
     // fetch the endpoint for selected game's lineup
     useEffect(() => {
@@ -40,9 +41,8 @@ const Game = () => {
                                     disabled={player.id === gameStatus.lastPlayerSelected.id ? true : false}
                                     value={player.id} 
                                     onClick={() => {
-                                    if (player.id !== gameStatus.lastPlayerSelected.id) {
+                                        setClose(false);
                                         setSelectedPlayer({name: player.fullName, id: player.id});
-                                    }
                                 }}>{player.fullName}</Player>
                             )
                         })
@@ -57,17 +57,16 @@ const Game = () => {
                                     disabled={player.id === gameStatus.lastPlayerSelected.id && gameStatus.currentUserHasWon !== true ? true : false}
                                     value={player.id} 
                                     onClick={() => {
-                                    if (player.id !== gameStatus.lastPlayerSelected.id) {
+                                        setClose(false);
                                         setSelectedPlayer({name: player.fullName, id: player.id});
-                                    }
                                 }}>{player.fullName}</Player>
                             )
                         })
                     }
                 </Lineup>
-                {/* will need to add a second condition that would only allow selection if the game has ben reset */}
+
                 {selectedPlayer !== null && 
-                <Modal player={selectedPlayer} lineups={lineups}/>
+                <Modal close={close} setClose={setClose} player={selectedPlayer} lineups={lineups}/>
                 }
             </Wrapper>
             }
@@ -130,8 +129,8 @@ const Player = styled.button`
 
 const Message = styled.p`
     color: black;
+    opacity: .8;
     font-family: var(--font-body);
-    font-size: 1.1em;
     background: lightgray;
     padding: 5px;
 `

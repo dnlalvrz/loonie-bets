@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { Route, Redirect } from "react-router-dom";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { GameContext } from '../Context/GameContext';
 
-const Modal = ({player, lineups}) => {
+const Modal = ({player, close, setClose, lineups}) => {
     const {gameStatus, setGameStatus} = useContext(GameContext);
+
     // make a random pick for the computer
     // const cpuRandomPick = () => {
     // }
@@ -22,11 +23,12 @@ const Modal = ({player, lineups}) => {
             <Redirect to={`/bet/${gameStatus.currentPlayerSelected.id}/`} />
         </Route>
         }
+        {!close && 
         <Wrapper>
             <p>Confirm your selection</p>
             <Player onClick={handleClick}>{player.name}</Player>
-            {/* <p>{gameStatus.currentPlayerSelected.id}</p> */}
-        </Wrapper>
+            <CloseButton onClick={() => setClose(true)}>X</CloseButton>
+        </Wrapper>}
         </>
     )
 }
@@ -73,6 +75,15 @@ const Player = styled.button`
             opacity: .9;
             border: 2px double;
         }
+`
+
+const CloseButton = styled(Player)`
+    margin: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 25px;
+    width: 25px;
 `
 
 export default Modal;

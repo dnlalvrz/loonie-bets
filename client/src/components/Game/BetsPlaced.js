@@ -1,16 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { GameContext } from "../Context/GameContext";
 
 const BetsPlaced = () => {
-    const { id } = useParams();
     const { gameStatus, setGameStatus } = useContext(GameContext);
     const gameId = gameStatus.gameId;
-    // test with useState
-    const [goals, setGoals] = useState([]);
-    // const index = goals.length;
     const index = gameStatus.goalsInGame;
     const latestGoal = gameStatus.latestGoal;
     // console.log(index,latestGoal)
@@ -47,7 +42,6 @@ const BetsPlaced = () => {
                             latestGoal: data.data[data.data.length - 1],
                             newGoal: true,
                         })
-                        setGoals(data.data);
                     }
                     if (gameStatus.currentPlayerSelected.id !== data.data[data.data.length - 1].players[0].player.id) {
                         setGameStatus({...gameStatus,
@@ -57,7 +51,6 @@ const BetsPlaced = () => {
                             latestGoal: data.data[data.data.length - 1],
                             newGoal: true,
                         })
-                        setGoals(data.data);
                     }
                 }
             })
@@ -76,12 +69,12 @@ const BetsPlaced = () => {
             <>
                 <p>🚨 🚨 Goal by: <span>{latestGoal.players[0].player.fullName}</span> at {latestGoal.about.periodTimeRemaining} remaining in the {latestGoal.about.ordinalNum} period! 🚨 🚨</p>
             {gameStatus.currentUserHasWon === true &&
-                <p><span>{gameStatus.currentUser}</span> has won! 💰 👏🏽 💰</p>
+                <p><span>{gameStatus.currentUser}</span> has won! 💰 💰 👏🏽 👏🏽 💰 💰</p>
             }
             {gameStatus.currentUserHasWon === false &&
-                <p><span>{gameStatus.currentUser}</span> has lost! 😵 💥 😵</p>
+                <p><span>{gameStatus.currentUser}</span> has lost.</p>
             }
-            <Reset to={`/game/${gameStatus.gameId}`} onClick={backToGame}>Try Again</Reset>
+            <Reset to={`/game/${gameStatus.gameId}`} onClick={backToGame}>Continue playing</Reset>
             <Reset to="/" onClick={backToHome}>Choose a different game</Reset>
             </>
             }

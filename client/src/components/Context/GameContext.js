@@ -16,7 +16,7 @@ export const GameProvider = ({children}) => {
         goalsInGame: 0,
     });
     const [gameData, setGameData] = useState([]);
-    console.log(gameStatus)
+    // console.log(gameStatus)
     // console.log(status)
     // console.log(gameData)
     // fetch the endpoint for selected game's scoreboard
@@ -47,20 +47,8 @@ export const GameProvider = ({children}) => {
         return () => clearInterval(interval);
     }
 
-    // write a function to test game conditions after a goal
-    const hasUserWon = () => {
-        // if (!gameStatus.newGoal) return;
-        if (gameStatus.currentPlayerSelected.id === gameStatus.latestGoal.players[0].player.id) {
-            setGameStatus({...gameStatus,
-                currentUserHasWon: true, 
-                userGains: gameStatus.userGains + 1,
-            })
-        }
-        console.log(gameStatus.currentPlayerSelected.id, gameStatus.latestGoal.players[0].player.id)
-    }
-
     return(
-        <GameContext.Provider value={{gameData, gameStatus, setGameStatus, fetchScoreBoard, hasUserWon}}>
+        <GameContext.Provider value={{gameData, gameStatus, setGameStatus, fetchScoreBoard }}>
             {children}
         </GameContext.Provider>
     )

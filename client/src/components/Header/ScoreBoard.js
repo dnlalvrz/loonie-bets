@@ -22,11 +22,11 @@ const ScoreBoard = () => {
             {status === 200 && gameId !== "" &&
             <>
             <TeamsWrapper>
-                <h2>{gameData.awayTeam.team.name} {gameData.awayTeam.goals}</h2>
+                <h2>{gameData.awayTeam.team.name} <div>{gameData.awayTeam.goals}</div></h2>
                 {powerPlay.active === true &&
                 <p>{gameData.powerPlay} {powerPlay.teamAdvantage} power play</p>
                 }
-                <h2>{gameData.homeTeam.team.name} {gameData.homeTeam.goals}</h2>
+                <h2>{gameData.homeTeam.team.name} <div>{gameData.homeTeam.goals}</div></h2>
             </TeamsWrapper>
             <GameStatus>
             <h3>{gameData.timeRemaining}</h3>
@@ -44,21 +44,27 @@ const Wrapper = styled.div`
     align-items: center;
     color: var(--font-light);
     font-family: var(--font-heading);
-    font-size: 1.2em;
     padding: 18px 18px 18px 0;
     p {
         font-family: var(--font-body);
         font-size: .8em;
         color: lightcoral;
     }
+    div {
+        margin-left: 20px;
+        display: inline;
+    }
 `;
 
 const TeamsWrapper = styled.div`
+    font-size: 1.3em;
     display: flex;
     flex-direction: column;
     align-items: space-between;
     padding: 5px;
     h2 {
+        display: flex;
+        justify-content: space-between;
         margin: 10px 0;
     }
 `
