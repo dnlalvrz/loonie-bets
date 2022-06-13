@@ -54,7 +54,7 @@ const Game = () => {
                         lineups[1].home.homeLineup.map(player => {
                             return(
                                 <Player key={player.id}
-                                    disabled={player.id === gameStatus.lastPlayerSelected.id ? true : false}
+                                    disabled={player.id === gameStatus.lastPlayerSelected.id && gameStatus.currentUserHasWon !== true ? true : false}
                                     value={player.id} 
                                     onClick={() => {
                                     if (player.id !== gameStatus.lastPlayerSelected.id) {
