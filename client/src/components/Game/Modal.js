@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Route, Redirect } from "react-router-dom";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { GameContext } from '../Context/GameContext';
 
 const Modal = ({player, close, setClose, lineups}) => {
@@ -11,9 +11,7 @@ const Modal = ({player, close, setClose, lineups}) => {
     // }
 
     const handleClick = () => {
-        if (player.id !== gameStatus.lastPlayerSelected.id) {
             setGameStatus({...gameStatus, currentPlayerSelected: player, lastPlayerSelected: player});
-        }
     }
 
     return(

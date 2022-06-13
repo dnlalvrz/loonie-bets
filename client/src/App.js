@@ -35,7 +35,7 @@ function App() {
           <Route exact path="/bet/:id">
             <BetsPlaced />
           </Route>
-          <Route path="">404: Oops!</Route>
+          <Route path="/*">404: Oops!</Route>
         </Switch>
         </Main>
     </BrowserRouter>

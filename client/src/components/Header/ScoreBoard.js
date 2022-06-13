@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { GameContext } from "../Context/GameContext";
 
 const ScoreBoard = () => {

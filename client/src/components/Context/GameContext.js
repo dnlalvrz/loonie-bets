@@ -1,4 +1,4 @@
-import {useState, createContext, useEffect} from 'react';
+import {useState, createContext } from 'react';
 
 export const GameContext = createContext();
 
@@ -15,6 +15,7 @@ export const GameProvider = ({children}) => {
         latestGoal: null,
         goalsInGame: 0,
     });
+
     const [gameData, setGameData] = useState([]);
     // console.log(gameStatus)
     // console.log(status)

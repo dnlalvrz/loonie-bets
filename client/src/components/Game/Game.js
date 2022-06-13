@@ -25,7 +25,7 @@ const Game = () => {
             console.error('Error:', error);
             setStatus("error");
         });
-    }, [])
+    }, [gameId])
 
     return(
         <>
@@ -38,7 +38,7 @@ const Game = () => {
                         lineups[0].away.awayLineup.map(player => {
                             return(
                                 <Player key={player.id}
-                                    disabled={player.id === gameStatus.lastPlayerSelected.id ? true : false}
+                                    disabled={player.id === gameStatus.lastPlayerSelected.id && gameStatus.currentUserHasWon !== true ? true : false}
                                     value={player.id} 
                                     onClick={() => {
                                         setClose(false);

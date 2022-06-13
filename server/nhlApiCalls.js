@@ -96,7 +96,7 @@ const fetchApiScoreBoard = async (gameId) => {
     // if (gameId === "test1234") return testScoreBoardScript;
     if (gameId === "test1234") {
         isActive = true;
-        const response = linescorePowerPlay;
+        const response = linescoreStart;
         period = response.currentPeriodOrdinal;
         timeRemaining = response.currentPeriodTimeRemaining;
         awayTeam = response.teams.away;
