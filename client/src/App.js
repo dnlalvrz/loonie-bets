@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { useContext } from "react";
+import { GameContext } from "./components/Context/GameContext";
 
 // import components
 import GlobalStyles from "./GlobalStyles";
@@ -10,13 +12,20 @@ import Game from "./components/Game/Game";
 import Modal from "./components/Game/Modal";
 import BetsPlaced from "./components/Game/BetsPlaced";
 
+
 function App() {
+  const { gameStatus } = useContext(GameContext);
   return (
     <BrowserRouter>
     <GlobalStyles />
     <Header />
         <Main>
         <Switch>
+        { gameStatus.currentPlayerSelected.id !== null &&
+            <Route exact path="/">
+                <Redirect to={`/bet/${gameStatus.currentPlayerSelected.id}/`} />
+            </Route>
+        }
           <Route exact path="/">
             <Home />
           </Route>

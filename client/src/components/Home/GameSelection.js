@@ -46,7 +46,7 @@ const GameSelection = () => {
         <Wrapper>
             <form onSubmit={handleSubmit}>
             <label>
-                <input required type="text" name="currentUser" placeholder="name" onChange={(e) => setGameStatus({...gameStatus, currentUser: e.target.value})}></input>
+                <input required autoComplete="off" value={gameStatus.currentUser} type="text" name="currentUser" placeholder="name" onChange={(e) => setGameStatus({...gameStatus, currentUser: e.target.value})}></input>
                 <select required value={gameStatus.gameId} onChange={(e) => setGameStatus({...gameStatus, gameId: e.target.value})}>
                     <option>Choose a game</option>
                     <option value="test1234">Test Mode</option>

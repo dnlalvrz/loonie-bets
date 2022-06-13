@@ -37,6 +37,7 @@ const Wrapper = styled.div`
     align-self: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     min-height: 25%;
     width: 50%;
     background: var(--color-header);
@@ -64,7 +65,7 @@ const Player = styled.button`
         color: var(--font-light);
         background: lightcoral;
         padding: 1px;
-        margin: 40px 10px 0;
+        margin: 20px 10px 0;
         width: 180px;
         max-height: 30px;
         transition:all ease-out 200ms;

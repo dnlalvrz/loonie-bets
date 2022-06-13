@@ -26,7 +26,6 @@ const Game = () => {
         });
     }, [])
 
-
     return(
         <>
             <Message>To begin, select the player who you think will score the next goal of the game</Message>
@@ -37,8 +36,13 @@ const Game = () => {
                     {
                         lineups[0].away.awayLineup.map(player => {
                             return(
-                                <Player key={player.id} value={player.id} onClick={() => {
-                                    setSelectedPlayer({name: player.fullName, id: player.id});
+                                <Player key={player.id}
+                                    disabled={player.id === gameStatus.lastPlayerSelected.id ? true : false}
+                                    value={player.id} 
+                                    onClick={() => {
+                                    if (player.id !== gameStatus.lastPlayerSelected.id) {
+                                        setSelectedPlayer({name: player.fullName, id: player.id});
+                                    }
                                 }}>{player.fullName}</Player>
                             )
                         })
@@ -49,8 +53,13 @@ const Game = () => {
                     {
                         lineups[1].home.homeLineup.map(player => {
                             return(
-                                <Player key={player.id} value={player} onClick={() => {
-                                    setSelectedPlayer({name: player.fullName, id: player.id});
+                                <Player key={player.id}
+                                    disabled={player.id === gameStatus.lastPlayerSelected.id ? true : false}
+                                    value={player.id} 
+                                    onClick={() => {
+                                    if (player.id !== gameStatus.lastPlayerSelected.id) {
+                                        setSelectedPlayer({name: player.fullName, id: player.id});
+                                    }
                                 }}>{player.fullName}</Player>
                             )
                         })
@@ -71,7 +80,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
     min-height: 80%;
     margin: 40px;
-    max-width: 1190px;
+    max-width: 1000px;
     border: groove 2px grey;
     background: transparent;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -113,6 +122,9 @@ const Player = styled.button`
         }
         &:active, &:focus {
             background: lightcoral;
+        }
+        &:disabled {
+            opacity: .5;
         }
 `
 

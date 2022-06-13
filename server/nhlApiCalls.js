@@ -10,7 +10,7 @@ const { linescoreStart,
     linescoreGoal2,
     linescorePowerPlay
  } = require("./DATA-FILES-FOR-TEST-MODE/linescore");
-const { response } = require('express');
+// const { response } = require('express');
 
 // helpers and scripts
 const { lineupFormatter, testScoreBoardScript, goalFormatter } = require("./helpers")
@@ -91,19 +91,20 @@ const fetchApiScoreBoard = async (gameId) => {
     let powerPlay;
     let powerPlayInfo;
     let isActive;
-    let response;
+    let scoreBoard;
     // all this test logic will have to be moved above to its own function then we can do
     // if (gameId === "test1234") return testScoreBoardScript;
     if (gameId === "test1234") {
         isActive = true;
-        period = linescoreStart.currentPeriodOrdinal;
-        timeRemaining = linescoreStart.currentPeriodTimeRemaining;
-        awayTeam = linescoreStart.teams.away;
-        homeTeam = linescoreStart.teams.home;
+        const response = linescoreStart;
+        period = response.currentPeriodOrdinal;
+        timeRemaining = response.currentPeriodTimeRemaining;
+        awayTeam = response.teams.away;
+        homeTeam = response.teams.home;
         // if (linescoreStart.powerPlayStrength === "Even") return;
-        if (linescoreStart.powerPlayStrength !== "Even") {
-            powerPlay = linescoreStart.powerPlayStrength;
-            powerPlayInfo = linescoreStart.powerPlayInfo;
+        if (response.powerPlayStrength !== "Even") {
+            powerPlay = response.powerPlayStrength;
+            powerPlayInfo = response.powerPlayInfo;
         }
         
     } else {
@@ -124,9 +125,9 @@ const fetchApiScoreBoard = async (gameId) => {
             awayTeam = response.teams.away;
             homeTeam = response.teams.home;
             // if (linescoreStart.powerPlayStrength === "Even") return;
-            if (linescoreStart.powerPlayStrength !== "Even") {
-                powerPlay = linescoreStart.powerPlayStrength;
-                powerPlayInfo = linescoreStart.powerPlayInfo;
+            if (response.powerPlayStrength !== "Even") {
+                powerPlay = response.powerPlayStrength;
+                powerPlayInfo = response.powerPlayInfo;
             }
 
         } catch (error) {
@@ -134,13 +135,13 @@ const fetchApiScoreBoard = async (gameId) => {
         }
 
     }
-    response = {isActive, period, timeRemaining, awayTeam, homeTeam, powerPlay, powerPlayInfo};
-    return response;
+    scoreBoard = {isActive, period, timeRemaining, awayTeam, homeTeam, powerPlay, powerPlayInfo};
+    return scoreBoard;
 };
 
 const fetchApiGoals = async (gameId) => {
     if (gameId === "test1234") {
-        const response = feedLiveGoal2;
+        const response = feedLiveGoal;
         const scoringPlays = response.liveData.plays.scoringPlays;
         const allPlays = response.liveData.plays.allPlays;
         // format data before returning the response for the handler
