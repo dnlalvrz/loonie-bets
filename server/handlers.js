@@ -92,7 +92,6 @@ const getGoals = async (req, res) => {
     const gameId = req.query.gameId;
 
     const data = await fetchApiGoals(gameId);
-    console.log(data)
 
     data !== undefined
         ?

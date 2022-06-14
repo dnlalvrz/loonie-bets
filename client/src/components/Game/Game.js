@@ -133,7 +133,7 @@ const Message = styled.p`
     color: black;
     opacity: .8;
     font-family: var(--font-body);
-    background: lightgray;
+    background: var(--font-light);
     padding: 5px;
 `
 
