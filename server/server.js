@@ -28,9 +28,6 @@ app.put("/api/select-player", selectPlayer);
 // endpoint that returns the latest goal
 app.get("/api/goals", getGoals);
 
-// handle 404s
-app.use((req, res) => res.status(404).type("txt").send("🤷‍♂️"))
-
 // this is our catch all endpoint.
 app.get("*", (req, res) => {
     res.status(404).json({
