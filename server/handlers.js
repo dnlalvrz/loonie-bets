@@ -12,6 +12,7 @@ const options = {
   useUnifiedTopology: true,
 };
 // global scope variable to hold our game data
+// change this to locals object and/or database as needed
 let gameData;
 
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
@@ -35,11 +36,18 @@ const getScoreBoard = async (req, res) => {
     
     const data = await fetchApiScoreBoard(gameId);
 
-    res.status(200).json({
-        status: 200,
-        message: "Ok",
-        data: data,
-    })
+    data.isActive
+        ? 
+        res.status(200).json({
+            status: 200,
+            message: "Ok",
+            data: data,
+        })
+        : res.status(404).json({
+            status: 404,
+            message: "invalid request",
+            gameId: gameId,
+        })
 };
 
 const getLineups = async (req, res) => {
@@ -48,11 +56,18 @@ const getLineups = async (req, res) => {
     const data = await fetchApiLineups(gameId);
     // gameData = {gameId, data};
 
-    res.status(200).json({
-        status: 200,
-        message: "Ok",
-        data: data,
-    })
+    data !== undefined
+        ?
+        res.status(200).json({
+            status: 200,
+            message: "Ok",
+            data: data,
+        })
+        : res.status(404).json({
+            status: 404,
+            message: "invalid request",
+            gameId: gameId,
+        })
 };
 
 const selectPlayer = async (req, res) => {
@@ -77,15 +92,21 @@ const getGoals = async (req, res) => {
     const gameId = req.query.gameId;
 
     const data = await fetchApiGoals(gameId);
+    console.log(data)
 
-    res.status(200).json({
-        status: 200,
-        message: "Ok",
-        data: data,
-    })
+    data !== undefined
+        ?
+        res.status(200).json({
+            status: 200,
+            message: "Ok",
+            data: data,
+        })
+        : res.status(404).json({
+            status: 404,
+            message: "invalid request",
+            gameId: gameId,
+        })
 }
-
-
 
 module.exports = {
     getSchedule,
