@@ -10,7 +10,7 @@ Documentation for the NHL API here: https://gitlab.com/dword4/nhlapi
 ![image](bets-screenshot.png)
 
 
-## styling inspired by the classic NHL '94 video game
+## Styling inspired by the classic NHL '94 video game
 
 ![image](RWbUgyp.jpeg)
 
