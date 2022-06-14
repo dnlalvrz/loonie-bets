@@ -58,7 +58,7 @@ const BetsPlaced = () => {
                 console.error('Error:', error);
                 setGameStatus("error");
             });
-        }, 60000);
+        }, 30000);
         return () => clearInterval(interval);
     }, [])
 

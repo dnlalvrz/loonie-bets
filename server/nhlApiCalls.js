@@ -141,7 +141,7 @@ const fetchApiScoreBoard = async (gameId) => {
 
 const fetchApiGoals = async (gameId) => {
     if (gameId === "test1234") {
-        const response = feedLiveGoal2;
+        const response = feedLiveGoal;
         const scoringPlays = response.liveData.plays.scoringPlays;
         const allPlays = response.liveData.plays.allPlays;
         // format data before returning the response for the handler
