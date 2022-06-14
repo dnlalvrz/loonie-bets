@@ -29,7 +29,9 @@ const Game = () => {
 
     return(
         <>
+            {status === 200 && 
             <Message>To begin, select the player who you think will score the next goal of the game</Message>
+            }
             { status === 200 &&
                 <Wrapper>
                 <Lineup>
