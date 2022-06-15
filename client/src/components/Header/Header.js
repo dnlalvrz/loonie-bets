@@ -11,7 +11,7 @@ const Header = () => {
     return(
         <Wrapper>
             <Logo to="/">
-                <p>Looney Bets</p>
+                <p>Loonie Bets</p>
             </Logo>
             <ScoreBoard />
             <Gains />

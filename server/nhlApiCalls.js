@@ -129,6 +129,9 @@ const fetchApiScoreBoard = async (gameId) => {
                 powerPlay = response.powerPlayStrength;
                 powerPlayInfo = response.powerPlayInfo;
             }
+            if (response.currentPeriodTimeRemaining === "Final") {
+                isActive = false;
+            }
 
         } catch (error) {
             console.log(error);

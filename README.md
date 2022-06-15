@@ -1,4 +1,4 @@
-# looney-bets 🚨
+# loonie-bets 🚨
 
 ---
 
