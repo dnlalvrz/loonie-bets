@@ -137,5 +137,4 @@ const Message = styled.p`
     padding: 5px;
 `
 
-
 export default Game;

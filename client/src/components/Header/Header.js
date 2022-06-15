@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-
 // import components
 import Gains from "./Gains";
 import ScoreBoard from "./ScoreBoard";

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+// css reset and global styles
 
 export default createGlobalStyle`
   :root {

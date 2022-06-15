@@ -4,6 +4,7 @@
 const {fetchApiSchedule, fetchApiScoreBoard, fetchApiLineups, fetchApiGoals} = require("./nhlApiCalls");
 
 // MongoDB config
+// for later
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -45,7 +46,7 @@ const getScoreBoard = async (req, res) => {
         })
         : res.status(404).json({
             status: 404,
-            message: "invalid request",
+            message: "Invalid request",
             gameId: gameId,
         })
 };
